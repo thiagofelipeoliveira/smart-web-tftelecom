@@ -109,4 +109,4 @@ smart-web-tftelecom/
 
 ---
 
-Trabalho da disciplina **Padrões Web para No Code e Low Code** (nota 10) · Graduação Tecnológica em Inteligência Artificial e Automação Digital · **UniFECAF** · Feito por [Thiago Felipe Oliveira](https://www.linkedin.com/in/thiago-felipe-17a35839)
+Trabalho da disciplina **Padrões Web para No Code e Low Code** (nota 10) · Graduação Tecnológica em Inteligência Artificial e Automação Digital · **UniFECAF** · Feito por [Thiago Felipe Oliveira](https://www.linkedin.com/in/thiagofelipeoliveira)
