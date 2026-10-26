@@ -1,0 +1,72 @@
+<!--
+  TF Telecom — Botão de WhatsApp com status de atendimento em tempo real
+
+  COMO USAR NO FRAMER (funciona no plano grátis):
+  1. Insira um componente "Embed" (HTML) e cole este código.
+  2. Tamanho do Embed: 300 x 60 (no celular: 220 x 56).
+  3. No painel direito, em Position, escolha "Fixed" e ancore no canto inferior direito (16px das bordas).
+     O Framer mantém o Embed fixo na tela durante a rolagem.
+
+  Por que assim? O Embed do Framer roda dentro de um iframe. Um "position: fixed" dentro do iframe
+  fica preso a ele. Por isso o script detecta o iframe e faz o botão ocupar o Embed inteiro;
+  fora de iframe (Custom Code do site), ele se fixa sozinho no canto da tela.
+-->
+<style>
+  html, body { margin: 0; background: transparent; }
+  .tf-float {
+    position: fixed; right: 16px; bottom: 16px; z-index: 9999;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: #0e7a3f; color: #fff; text-decoration: none;
+    font: 600 15px/1.2 "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 12px 18px; border-radius: 999px; min-height: 48px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    transition: transform .15s;
+  }
+  .tf-float:hover { transform: translateY(-2px); }
+  .tf-float.in-frame { position: static; width: 100%; height: 100vh; min-height: 0; box-shadow: none; box-sizing: border-box; }
+  .tf-float:focus-visible { outline: 3px solid #ffd200; outline-offset: -4px; }
+  .tf-dot { width: 10px; height: 10px; border-radius: 50%; background: #9ef01a; flex: none; animation: tf-pulse 2s infinite; }
+  .tf-float.fechado { background: #0a1f6e; }
+  .tf-float.fechado .tf-dot { background: #ffd200; animation: none; }
+  @keyframes tf-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(158,240,26,.7); } 50% { box-shadow: 0 0 0 6px rgba(158,240,26,0); } }
+  @media (max-width: 480px) { .tf-float .tf-txt-longo { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .tf-dot { animation: none; } .tf-float { transition: none; } }
+</style>
+
+<a class="tf-float" id="tf-float" href="https://wa.me/5549920023806" target="_blank" rel="noopener">
+  <span class="tf-dot" aria-hidden="true"></span>
+  <span id="tf-float-txt">Fale conosco</span>
+</a>
+
+<script>
+(function () {
+  const WHATS = "5549920023806"; // (49) 92002-3806
+  // Horário comercial: seg–sex 8h–18h, sáb 8h–12h (horário de Brasília). Ajuste se necessário.
+  const HORARIO = { 1: [8, 18], 2: [8, 18], 3: [8, 18], 4: [8, 18], 5: [8, 18], 6: [8, 12] };
+
+  const el = document.getElementById("tf-float");
+  const txt = document.getElementById("tf-float-txt");
+  let dentroDeIframe = false;
+  try { dentroDeIframe = window.self !== window.top; } catch (e) { dentroDeIframe = true; }
+  if (dentroDeIframe) el.classList.add("in-frame");
+
+  function atualizar() {
+    const agora = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" }));
+    const faixa = HORARIO[agora.getDay()];
+    const h = agora.getHours() + agora.getMinutes() / 60;
+    const aberto = !!faixa && h >= faixa[0] && h < faixa[1];
+    const msg = aberto ? "Olá! Vim pelo site da TF Telecom." : "Olá! Vim pelo site da TF Telecom (fora do horário).";
+    el.href = `https://wa.me/${WHATS}?text=${encodeURIComponent(msg)}`;
+    el.classList.toggle("fechado", !aberto);
+    if (aberto) {
+      txt.innerHTML = 'Atendimento online <span class="tf-txt-longo">— fale agora</span>';
+      el.setAttribute("aria-label", "Atendimento online agora. Abrir conversa no WhatsApp");
+    } else {
+      txt.innerHTML = 'Deixe sua mensagem <span class="tf-txt-longo">— respondemos às 8h</span>';
+      el.setAttribute("aria-label", "Atendimento fechado agora. Deixe sua mensagem no WhatsApp e responderemos no próximo horário");
+    }
+  }
+  atualizar();
+  setInterval(atualizar, 60000); // reavalia a cada minuto (ex.: às 18h vira "fechado" sem recarregar)
+})();
+</script>

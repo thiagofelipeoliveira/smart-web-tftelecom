@@ -1,0 +1,36 @@
+<!--
+  TF Telecom — SEO local e compartilhamento em redes sociais
+  Onde colar no Framer: Site Settings > General (título/descrição/imagem social) e,
+  se o seu plano permitir, Site Settings > Custom Code > "Start of <head>" para o bloco JSON-LD.
+
+  O JSON-LD informa ao Google que a TF Telecom é um provedor de internet em Chapecó (SC),
+  com telefones e ofertas. Isso ajuda o site a aparecer em buscas como "internet fibra Chapecó".
+  Teste em: https://search.google.com/test/rich-results
+-->
+<meta name="description" content="TF Telecom: internet fibra em Chapecó com instalação grátis e Wi-Fi 6. Planos de 400, 500 e 600 Mega a partir de R$ 99,90. Descubra seu plano ideal com nosso assistente.">
+<meta property="og:title" content="TF Telecom — Internet fibra em Chapecó">
+<meta property="og:description" content="+ Internet por menos preço. 400 Mega por R$ 99,90. Instalação grátis e roteador Wi-Fi 6.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta name="theme-color" content="#0b2fb0">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "InternetServiceProvider",
+  "name": "TF Telecom",
+  "description": "Provedor de internet fibra em Chapecó (SC).",
+  "telephone": ["+55-49-92002-3806", "+55-49-3329-6270"],
+  "areaServed": { "@type": "City", "name": "Chapecó" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Chapecó", "addressRegion": "SC", "addressCountry": "BR" },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "12:00" }
+  ],
+  "makesOffer": [
+    { "@type": "Offer", "name": "400 MEGA", "price": "99.90", "priceCurrency": "BRL" },
+    { "@type": "Offer", "name": "500 MEGA", "price": "119.90", "priceCurrency": "BRL" },
+    { "@type": "Offer", "name": "600 MEGA", "price": "129.90", "priceCurrency": "BRL" }
+  ]
+}
+</script>

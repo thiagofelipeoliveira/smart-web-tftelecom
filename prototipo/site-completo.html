@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TF Telecom — Internet fibra em Chapecó</title>
+<!--
+  PROTÓTIPO DE REFERÊNCIA do site completo.
+  Serve de modelo visual para montar as seções no Framer (cada <section> = uma seção no Framer)
+  e mostra os Embeds funcionando exatamente como no Framer: dentro de <iframe>.
+  Abra este arquivo no navegador com a pasta inteira baixada (ele carrega ../codigo-framer/*.html).
+-->
+<meta name="description" content="TF Telecom: internet fibra em Chapecó com instalação grátis e Wi-Fi 6. Planos de 400, 500 e 600 Mega a partir de R$ 99,90.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1f4fe0; --blue-2: #0b2fb0; --navy: #0a1f6e; --yellow: #ffd200;
+    --text: #0b1437; --muted: #4a5578; --surface: #f3f6ff; --border: #d6def5; --white: #fff;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: "Poppins", system-ui, sans-serif; color: var(--text); background: var(--white); line-height: 1.55; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+  .skip { position: absolute; left: -999px; top: 8px; background: var(--yellow); color: var(--navy); padding: 10px 14px; border-radius: 8px; z-index: 100; font-weight: 700; }
+  .skip:focus { left: 8px; }
+
+  /* MENU */
+  header.nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .nav img { height: 48px; display: block; }
+  .nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
+  .nav ul a { text-decoration: none; font-weight: 600; color: var(--navy); }
+  .nav ul a:hover { color: var(--blue); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 22px; border-radius: 12px; font-weight: 700; text-decoration: none; border: 0; cursor: pointer; font: inherit; font-weight: 700; }
+  .btn-y { background: var(--yellow); color: var(--navy); }
+  .btn-o { border: 2px solid var(--white); color: var(--white); background: transparent; }
+  .menu-btn { display: none; background: none; border: 2px solid var(--navy); border-radius: 10px; width: 48px; height: 44px; color: var(--navy); font-size: 1.3rem; cursor: pointer; }
+
+  /* HERO */
+  .hero { color: var(--white); background: radial-gradient(800px 400px at 85% 20%, rgba(41,182,246,.45), transparent 60%), linear-gradient(160deg, var(--blue), var(--blue-2) 55%, var(--navy)); overflow: hidden; position: relative; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding-top: 72px; padding-bottom: 88px; }
+  .hero .kicker { font-weight: 500; opacity: .9; margin: 0; }
+  .hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.05; margin: 8px 0 16px; font-weight: 800; letter-spacing: -1px; }
+  .hero h1 span { color: var(--yellow); }
+  .hero p.lead { font-size: 1.1rem; max-width: 520px; opacity: .95; }
+  .checks { list-style: none; padding: 0; margin: 18px 0 28px; display: grid; gap: 8px; }
+  .checks li::before { content: "✓ "; color: var(--yellow); font-weight: 800; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-price { background: var(--white); color: var(--navy); border-radius: 22px; overflow: hidden; box-shadow: 0 30px 60px rgba(7,21,77,.45); transform: rotate(-2deg); }
+  .hero-price .top { padding: 22px 26px 10px; font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 800; }
+  .hero-price .top span { font-weight: 500; }
+  .hero-price .bot { background: var(--navy); color: var(--white); padding: 16px 26px 20px; }
+  .hero-price .bot strong { display: block; color: var(--yellow); font-size: clamp(2.6rem, 6vw, 3.8rem); line-height: 1; font-weight: 800; }
+  .rings { position: absolute; right: -180px; top: -200px; width: 560px; height: 560px; border-radius: 50%; border: 50px solid rgba(255,255,255,.06); box-shadow: 0 0 0 60px rgba(255,255,255,.03); pointer-events: none; }
+
+  /* SEÇÕES */
+  section { padding: 80px 0; }
+  .sec-title { text-align: center; margin-bottom: 40px; }
+  .sec-title h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin: 0 0 8px; color: var(--navy); font-weight: 800; }
+  .sec-title p { margin: 0; color: var(--muted); }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+  .plan { border: 1px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 12px 30px rgba(10,31,110,.08); display: flex; flex-direction: column; background: var(--white); }
+  .plan.featured { border: 3px solid var(--yellow); transform: translateY(-8px); }
+  .plan .p-top { padding: 22px 24px 8px; font-size: 2.3rem; font-weight: 800; color: var(--navy); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .plan .p-top span { font-weight: 500; }
+  .plan .tag { font-size: .75rem; background: var(--yellow); color: var(--navy); padding: 4px 10px; border-radius: 99px; }
+  .plan .p-price { background: linear-gradient(135deg, var(--navy), var(--blue-2)); color: var(--white); padding: 12px 24px; }
+  .plan .p-price strong { color: var(--yellow); font-size: 2.2rem; font-weight: 800; }
+  .plan ul { padding: 18px 24px 0 42px; margin: 0; flex: 1; }
+  .plan li { margin-bottom: 6px; }
+  .plan .btn { margin: 20px 24px 24px; }
+  .plan .btn-n { background: var(--navy); color: var(--white); }
+  .assist { background: linear-gradient(180deg, var(--surface), var(--white)); }
+  .assist iframe { display: block; width: 100%; max-width: 880px; height: 1050px; margin: 0 auto; border: 0; border-radius: 28px; }
+  .feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .feat { background: var(--surface); border-radius: 18px; padding: 26px; }
+  .feat .ico { width: 52px; height: 52px; border-radius: 14px; background: var(--blue); color: var(--yellow); display: grid; place-items: center; font-size: 1.5rem; margin-bottom: 12px; }
+  .feat h3 { margin: 0 0 6px; color: var(--navy); }
+  .feat p { margin: 0; color: var(--muted); }
+  .faq { max-width: 800px; margin: 0 auto; }
+  .faq details { border: 1px solid var(--border); border-radius: 14px; padding: 4px 20px; margin-bottom: 12px; background: var(--white); }
+  .faq summary { cursor: pointer; font-weight: 700; color: var(--navy); padding: 14px 0; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+  .faq summary::after { content: "+"; font-size: 1.4rem; line-height: 1; color: var(--blue); }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { margin: 0 0 16px; color: var(--muted); }
+  .cta { background: var(--navy); color: var(--white); text-align: center; }
+  .cta h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 10px; }
+  .cta h2 span { color: var(--yellow); }
+  .cta .phones { font-size: 1.4rem; font-weight: 700; margin: 18px 0 26px; }
+  .cta .phones a { text-decoration: none; }
+  footer { background: #07154d; color: rgba(255,255,255,.75); padding: 28px 0; font-size: .9rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .float { position: fixed; right: 16px; bottom: 16px; width: 300px; height: 60px; border: 0; z-index: 60; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+
+  @media (max-width: 860px) {
+    .hero .wrap { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 64px; }
+    .hero-price { max-width: 360px; }
+    .nav ul { display: none; position: absolute; top: 72px; left: 0; right: 0; background: var(--white); flex-direction: column; gap: 0; border-bottom: 1px solid var(--border); }
+    .nav ul.open { display: flex; }
+    .nav ul a { display: block; padding: 16px 20px; }
+    .menu-btn { display: block; }
+    .nav .btn-y { display: none; }
+    .plan.featured { transform: none; }
+    .assist iframe { height: 1800px; border-radius: 20px; }
+    .float { width: 220px; height: 56px; }
+    section { padding: 56px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"InternetServiceProvider","name":"TF Telecom","telephone":["+55-49-92002-3806","+55-49-3329-6270"],"areaServed":{"@type":"City","name":"Chapecó"},"address":{"@type":"PostalAddress","addressLocality":"Chapecó","addressRegion":"SC","addressCountry":"BR"}}
+</script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#inicio" aria-label="TF Telecom — início"><img src="logo-tf.webp" alt="TF Telecom"></a>
+    <nav aria-label="Principal">
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">☰</button>
+      <ul id="menu">
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#assistente">Assistente</a></li>
+        <li><a href="#vantagens">Vantagens</a></li>
+        <li><a href="#duvidas">Dúvidas</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-y" href="#assistente">Descubra seu plano</a>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section class="hero" id="inicio" style="padding:0">
+    <div class="rings" aria-hidden="true"></div>
+    <div class="wrap">
+      <div>
+        <p class="kicker">Internet 100% fibra óptica</p>
+        <h1>Chegamos em <span>Chapecó</span></h1>
+        <p class="lead"><strong>+ Internet por menos preço.</strong> Conexão estável para sua casa ou empresa, com atendimento de quem está perto de você.</p>
+        <ul class="checks">
+          <li>Instalação grátis</li>
+          <li>Roteador Wi-Fi 6 em comodato</li>
+          <li>Indique um amigo e ganhe uma mensalidade*</li>
+        </ul>
+        <div class="hero-actions">
+          <a class="btn btn-y" href="#assistente">Descubra seu plano ideal</a>
+          <a class="btn btn-o" href="#planos">Ver planos</a>
+        </div>
+      </div>
+      <div class="hero-price" aria-label="Oferta: 400 Mega por R$ 99,90 por mês">
+        <div class="top">400 <span>MEGA</span></div>
+        <div class="bot"><small>Por apenas</small><strong>R$ 99,90</strong><small>por mês</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="planos">
+    <div class="wrap">
+      <div class="sec-title"><h2>Escolha seu plano</h2><p>Todos com instalação grátis e roteador Wi-Fi 6.</p></div>
+      <div class="plans">
+        <article class="plan">
+          <div class="p-top"><div>400 <span>MEGA</span></div></div>
+          <div class="p-price"><small>Por apenas</small> <strong>R$ 99,90</strong> <small>/mês</small></div>
+          <ul><li>Até 4 pessoas conectadas</li><li>Redes sociais, estudos e streaming HD</li><li>Wi-Fi 6 incluso</li></ul>
+          <a class="btn btn-n" href="https://wa.me/5549920023806?text=Quero%20o%20plano%20400%20MEGA" target="_blank" rel="noopener">Assinar 400 Mega</a>
+        </article>
+        <article class="plan featured">
+          <div class="p-top"><div>500 <span>MEGA</span></div><span class="tag">Mais vendido</span></div>
+          <div class="p-price"><small>Por apenas</small> <strong>R$ 119,90</strong> <small>/mês</small></div>
+          <ul><li>Famílias conectadas</li><li>Streaming 4K e home office</li><li>Wi-Fi 6 incluso</li></ul>
+          <a class="btn btn-y" href="https://wa.me/5549920023806?text=Quero%20o%20plano%20500%20MEGA" target="_blank" rel="noopener">Assinar 500 Mega</a>
+        </article>
+        <article class="plan">
+          <div class="p-top"><div>600 <span>MEGA</span></div></div>
+          <div class="p-price"><small>Por apenas</small> <strong>R$ 129,90</strong> <small>/mês</small></div>
+          <ul><li>Jogos online e muitos dispositivos</li><li>Uploads pesados e câmeras</li><li>Wi-Fi 6 incluso</li></ul>
+          <a class="btn btn-n" href="https://wa.me/5549920023806?text=Quero%20o%20plano%20600%20MEGA" target="_blank" rel="noopener">Assinar 600 Mega</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="assist" id="assistente">
+    <div class="wrap">
+      <div class="sec-title"><h2>Assistente inteligente TF</h2><p>Descubra seu plano ideal ou resolva sua solicitação em segundos.</p></div>
+      <!-- No Framer este bloco é o componente Embed (HTML) com o conteúdo de assistente-tf.html -->
+      <iframe src="../codigo-framer/assistente-tf.html" title="Assistente virtual da TF Telecom" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <section id="vantagens">
+    <div class="wrap">
+      <div class="sec-title"><h2>Por que a TF Telecom?</h2></div>
+      <div class="feats">
+        <div class="feat"><div class="ico" aria-hidden="true">⚡</div><h3>100% fibra</h3><p>Velocidade real, estável e simétrica até o seu roteador.</p></div>
+        <div class="feat"><div class="ico" aria-hidden="true">📶</div><h3>Wi-Fi 6</h3><p>Roteador de última geração em comodato, sem custo extra.</p></div>
+        <div class="feat"><div class="ico" aria-hidden="true">🛠️</div><h3>Instalação grátis</h3><p>Técnicos da região, agendamento rápido.</p></div>
+        <div class="feat"><div class="ico" aria-hidden="true">🤝</div><h3>Indique e ganhe</h3><p>Indicou um amigo que assinou? Ganhe uma mensalidade.*</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="duvidas" style="background:var(--surface)">
+    <div class="wrap faq">
+      <div class="sec-title"><h2>Dúvidas frequentes</h2></div>
+      <details><summary>Tem taxa de instalação?</summary><p>Não. A instalação é grátis e o roteador Wi-Fi 6 fica em comodato.*</p></details>
+      <details><summary>Como sei se atende no meu endereço?</summary><p>Fale no WhatsApp (49) 92002-3806 informando sua rua e bairro — respondemos na hora em horário comercial.</p></details>
+      <details><summary>Qual plano é melhor para mim?</summary><p>Use o <a href="#assistente">assistente</a>: em 4 perguntas ele recomenda o plano ideal e explica o motivo.</p></details>
+      <details><summary>Como funciona o "indique um amigo"?</summary><p>Quando alguém indicado por você assina, você ganha uma mensalidade. *Consulte condições.</p></details>
+      <details><summary>Minha internet caiu, o que faço?</summary><p>Desligue o roteador da tomada por 30 segundos. Se não voltar, use a aba "Preciso de ajuda" do assistente — seu pedido chega com prioridade à equipe técnica.</p></details>
+    </div>
+  </section>
+
+  <section class="cta" id="contato">
+    <div class="wrap">
+      <h2>Assine <span>já!</span></h2>
+      <p>Atendimento de segunda a sexta, 8h às 18h, e sábado, 8h às 12h.</p>
+      <p class="phones"><a href="https://wa.me/5549920023806" target="_blank" rel="noopener">WhatsApp (49) 92002-3806</a><br><a href="tel:+554933296270">(49) 3329-6270</a></p>
+      <a class="btn btn-y" href="https://wa.me/5549920023806" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© TF Telecom · Chapecó (SC)</span>
+    <span>*Consulte condições.</span>
+  </div>
+</footer>
+
+<!-- No Framer: Embed (HTML) com botao-whatsapp-status.html, Position: Fixed, canto inferior direito -->
+<iframe class="float" src="../codigo-framer/botao-whatsapp-status.html" title="Atendimento pelo WhatsApp"></iframe>
+
+<script>
+  // Menu mobile acessível (no Framer, use o componente Navigation com variante mobile)
+  const btn = document.querySelector(".menu-btn"), menu = document.getElementById("menu");
+  btn.addEventListener("click", () => {
+    const aberto = menu.classList.toggle("open");
+    btn.setAttribute("aria-expanded", aberto);
+    btn.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+  });
+  menu.addEventListener("click", e => { if (e.target.tagName === "A") { menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); } });
+</script>
+</body>
+</html>
